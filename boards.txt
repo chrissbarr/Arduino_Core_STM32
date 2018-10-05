@@ -719,6 +719,20 @@ RUMBA32_F446.menu.upload_method.serialMethod=Serial
 RUMBA32_F446.menu.upload_method.serialMethod.upload.protocol=maple_serial
 RUMBA32_F446.menu.upload_method.serialMethod.upload.tool=serial_upload
 
+RUMBA32_F446.menu.upload_method.DFUnative=DFU (Native)
+RUMBA32_F446.menu.upload_method.DFUnative.upload.protocol=dfuutil_upload
+RUMBA32_F446.menu.upload_method.DFUnative.upload.tool=dfuutil_upload
+RUMBA32_F446.menu.upload_method.DFUnative.upload.address=0x08000000
+RUMBA32_F446.menu.upload_method.DFUnative.build.ldscript=ldscript.ld
+
+RUMBA32_F446.menu.upload_method.DFUbootloader=DFU Bootloader (0x10000)
+RUMBA32_F446.menu.upload_method.DFUbootloader.upload.protocol=dfuutil_upload
+RUMBA32_F446.menu.upload_method.DFUbootloader.upload.tool=dfuutil_upload
+RUMBA32_F446.menu.upload_method.DFUbootloader.upload.address=0x08010000
+RUMBA32_F446.menu.upload_method.DFUbootloader.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DVECT_TAB_OFFSET=0x10000
+RUMBA32_F446.menu.upload_method.DFUbootloader.build.ldscript=ldscript_0x10000.ld
+
+
 ################################################################################
 # Serialx activation
 Nucleo_144.menu.xserial.generic=Enabled with generic Serial
@@ -805,6 +819,12 @@ Disco.menu.usb.HID=HID keyboard and mouse support (if available)
 Disco.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
 #Disco.menu.usb.CDC=CDC (if available)
 #Disco.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_FS
+
+RUMBA32_F446.menu.usb.none=None
+RUMBA32_F446.menu.usb.HID=HID keyboard and mouse support (if available)
+RUMBA32_F446.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+#RUMBA32_F446.menu.usb.CDC=CDC (if available)
+#RUMBA32_F446.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_FS
 
 # Optimizations
 Nucleo_144.menu.opt.osstd=Smallest (-Os default)
