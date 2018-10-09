@@ -723,7 +723,6 @@ RUMBA32_F446.menu.upload_method.DFUnative=DFU (Native)
 RUMBA32_F446.menu.upload_method.DFUnative.upload.protocol=dfuutil_upload
 RUMBA32_F446.menu.upload_method.DFUnative.upload.tool=dfuutil_upload
 RUMBA32_F446.menu.upload_method.DFUnative.upload.address=0x08000000
-RUMBA32_F446.menu.upload_method.DFUnative.build.ldscript=ldscript.ld
 
 RUMBA32_F446.menu.upload_method.DFUbootloader=DFU Bootloader (0x10000)
 RUMBA32_F446.menu.upload_method.DFUbootloader.upload.protocol=dfuutil_upload
