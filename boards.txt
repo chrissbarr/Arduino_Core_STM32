@@ -720,12 +720,12 @@ RUMBA32_F446.menu.upload_method.serialMethod.upload.protocol=maple_serial
 RUMBA32_F446.menu.upload_method.serialMethod.upload.tool=serial_upload
 
 RUMBA32_F446.menu.upload_method.DFUnative=DFU (Native)
-RUMBA32_F446.menu.upload_method.DFUnative.upload.protocol=dfuutil_upload
+RUMBA32_F446.menu.upload_method.DFUnative.upload.protocol=0
 RUMBA32_F446.menu.upload_method.DFUnative.upload.tool=dfuutil_upload
 RUMBA32_F446.menu.upload_method.DFUnative.upload.address=0x08000000
 
 RUMBA32_F446.menu.upload_method.DFUbootloader=DFU Bootloader (0x10000)
-RUMBA32_F446.menu.upload_method.DFUbootloader.upload.protocol=dfuutil_upload
+RUMBA32_F446.menu.upload_method.DFUbootloader.upload.protocol=0
 RUMBA32_F446.menu.upload_method.DFUbootloader.upload.tool=dfuutil_upload
 RUMBA32_F446.menu.upload_method.DFUbootloader.upload.address=0x08010000
 RUMBA32_F446.menu.upload_method.DFUbootloader.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DVECT_TAB_OFFSET=0x10000
