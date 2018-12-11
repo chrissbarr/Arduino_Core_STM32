@@ -44,9 +44,8 @@
   *
   ******************************************************************************
   */
-/* Includes ------------------------------------------------------------------*/
 #ifdef USBCON
-
+/* Includes ------------------------------------------------------------------*/
 #include "usbd_conf.h"
 #include "usbd_core.h"
 #include "hw_config.h"
@@ -82,20 +81,7 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
   GPIO_InitStruct.Pin = (GPIO_PIN_11 | GPIO_PIN_12);
   GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
-  GPIO_InitStruct.Alternate = GPIO_AF10_OTG_FS;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-  /* Configure VBUS Pin */
-  GPIO_InitStruct.Pin = GPIO_PIN_9;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-  /* Configure ID pin */
-  GPIO_InitStruct.Pin = GPIO_PIN_10;
-  GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
-  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
   GPIO_InitStruct.Alternate = GPIO_AF10_OTG_FS;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
@@ -130,6 +116,8 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
   */
 void HAL_PCD_MspDeInit(PCD_HandleTypeDef *hpcd)
 {
+  UNUSED(hpcd);
+  
   /* Disable USB FS Clock */
   __HAL_RCC_USB_OTG_FS_CLK_DISABLE();
   __HAL_RCC_SYSCFG_CLK_DISABLE();
@@ -334,13 +322,13 @@ USBD_StatusTypeDef USBD_LL_Init(USBD_HandleTypeDef *pdev)
   g_hpcd.Instance = USB_OTG_FS;
   g_hpcd.Init.dev_endpoints = 4;
   g_hpcd.Init.use_dedicated_ep1 = 0;
-  g_hpcd.Init.ep0_mps = 0x40;
+  g_hpcd.Init.ep0_mps = DEP0CTL_MPS_64; //0x40;
   g_hpcd.Init.dma_enable = 0;
   g_hpcd.Init.low_power_enable = 0;
   g_hpcd.Init.phy_itface = PCD_PHY_EMBEDDED;
   g_hpcd.Init.Sof_enable = 0;
   g_hpcd.Init.speed = PCD_SPEED_FULL;
-  g_hpcd.Init.vbus_sensing_enable = 1;
+  g_hpcd.Init.vbus_sensing_enable = 0;
   g_hpcd.Init.lpm_enable = 0;
   /* Link The driver to the stack */
   g_hpcd.pData = pdev;
@@ -351,8 +339,7 @@ USBD_StatusTypeDef USBD_LL_Init(USBD_HandleTypeDef *pdev)
 
   HAL_PCDEx_SetRxFiFo(&g_hpcd, 0x80);
   HAL_PCDEx_SetTxFiFo(&g_hpcd, 0, 0x40);
-  HAL_PCDEx_SetTxFiFo(&g_hpcd, 1, 0x10);
-  HAL_PCDEx_SetTxFiFo(&g_hpcd, 2, 0x10);
+  HAL_PCDEx_SetTxFiFo(&g_hpcd, 1, 0x80);
 
   return USBD_OK;
 }
