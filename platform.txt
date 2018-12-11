@@ -59,7 +59,7 @@ compiler.c.extra_flags=
 compiler.c.elf.extra_flags=
 compiler.cpp.extra_flags=
 compiler.cpp.std=gnu++14
-compiler.S.extra_flags=
+compiler.S.extra_flags={build.startup_file}
 compiler.ar.extra_flags=
 compiler.elf2bin.extra_flags=
 compiler.elf2hex.extra_flags=
@@ -81,6 +81,7 @@ build.info.flags=-D{build.series} -DARDUINO={runtime.ide.version} -DARDUINO_{bui
 # Defaults config
 build.xSerial=-DHAL_UART_MODULE_ENABLED
 build.enable_usb=
+build.startup_file=
 build.flags.optimize=-Os
 build.flags.ldspecs=--specs=nano.specs
 
@@ -140,10 +141,10 @@ recipe.size.regex.eeprom=^(?:\.eeprom)\s+([0-9]+).*
 tools.massStorageCopy.cmd=massStorageCopy
 tools.massStorageCopy.cmd.windows=massStorageCopy.bat
 tools.massStorageCopy.cmd.macosx=massStorageCopyMacOsX
-tools.massStorageCopy.path={runtime.tools.STM32Tools.path}/tools/win
-tools.massStorageCopy.path.macosx={runtime.tools.STM32Tools.path}/tools/macosx
-tools.massStorageCopy.path.linux={runtime.tools.STM32Tools.path}/tools/linux
-tools.massStorageCopy.path.linux64={runtime.tools.STM32Tools.path}/tools/linux
+tools.massStorageCopy.path={runtime.hardware.path}/tools/win
+tools.massStorageCopy.path.macosx={runtime.hardware.path}/tools/macosx
+tools.massStorageCopy.path.linux={runtime.hardware.path}/tools/linux
+tools.massStorageCopy.path.linux64={runtime.hardware.path}/tools/linux
 tools.massStorageCopy.upload.params.verbose=
 tools.massStorageCopy.upload.params.quiet=
 tools.massStorageCopy.upload.pattern="{path}/{cmd}" {upload.verbose} -I "{build.path}/{build.project_name}.bin" -O "{node}"
@@ -151,10 +152,10 @@ tools.massStorageCopy.upload.pattern="{path}/{cmd}" {upload.verbose} -I "{build.
 # ST-Link upload
 tools.stlink_upload.cmd=stlink_upload
 tools.stlink_upload.cmd.windows=stlink_upload.bat
-tools.stlink_upload.path.windows={runtime.tools.STM32Tools.path}/tools/win
-tools.stlink_upload.path.macosx={runtime.tools.STM32Tools.path}/tools/macosx
-tools.stlink_upload.path.linux={runtime.tools.STM32Tools.path}/tools/linux
-tools.stlink_upload.path.linux64={runtime.tools.STM32Tools.path}/tools/linux64
+tools.stlink_upload.path.windows={runtime.hardware.path}/tools/win
+tools.stlink_upload.path.macosx={runtime.hardware.path}/tools/macosx
+tools.stlink_upload.path.linux={runtime.hardware.path}/tools/linux
+tools.stlink_upload.path.linux64={runtime.hardware.path}/tools/linux64
 tools.stlink_upload.upload.params.verbose=-d
 tools.stlink_upload.upload.params.quiet=
 tools.stlink_upload.upload.pattern="{path}/{cmd}" {serial.port.file} {upload.altID} {upload.usbID} "{build.path}/{build.project_name}.bin"
@@ -165,10 +166,10 @@ tools.stlink_upload.upload.pattern="{path}/{cmd}" {serial.port.file} {upload.alt
 tools.serial_upload.cmd=serial_upload
 tools.serial_upload.cmd.windows=serial_upload.bat
 tools.serial_upload.cmd.macosx=serial_upload
-tools.serial_upload.path={runtime.tools.STM32Tools.path}/tools/win
-tools.serial_upload.path.macosx={runtime.tools.STM32Tools.path}/tools/macosx
-tools.serial_upload.path.linux={runtime.tools.STM32Tools.path}/tools/linux
-tools.serial_upload.path.linux64={runtime.tools.STM32Tools.path}/tools/linux64
+tools.serial_upload.path={runtime.hardware.path}/tools/win
+tools.serial_upload.path.macosx={runtime.hardware.path}/tools/macosx
+tools.serial_upload.path.linux={runtime.hardware.path}/tools/linux
+tools.serial_upload.path.linux64={runtime.hardware.path}/tools/linux64
 tools.serial_upload.upload.params.verbose=-d
 tools.serial_upload.upload.params.quiet=n
 tools.serial_upload.upload.pattern="{path}/{cmd}" {serial.port.file} {upload.altID} {upload.usbID} "{build.path}/{build.project_name}.bin"
@@ -180,13 +181,3 @@ tools.bmp_upload.upload.speed=230400
 tools.bmp_upload.upload.params.verbose=-batch
 tools.bmp_upload.upload.params.quiet=--batch-silent
 tools.bmp_upload.upload.pattern="{path}{cmd}" -nx -b {upload.speed} {upload.verbose} -ex "set confirm off" -ex "target extended-remote {serial.port}" -ex "monitor swdp_scan" -ex "attach 1" -ex "load" -ex "compare-sections" -ex "kill" "{build.path}/{build.project_name}.elf"
-
-# DFU upload using dfu-util
-tools.dfuutil_upload.cmd=dfu-util
-tools.dfuutil_upload.path.windows={runtime.tools.STM32Tools.path}/tools/win/dfu-util
-tools.dfuutil_upload.path.macosx={runtime.tools.STM32Tools.path}/tools/macosx/dfu-util
-tools.dfuutil_upload.path.linux={runtime.tools.STM32Tools.path}/tools/linux/dfu-util
-tools.dfuutil_upload.path.linux64={runtime.tools.STM32Tools.path}/tools/linux64/dfu-util
-tools.dfuutil_upload.upload.params.verbose=-d
-tools.dfuutil_upload.upload.params.quiet=
-tools.dfuutil_upload.upload.pattern="{path}/{cmd}" -a {upload.protocol} -s "{upload.address}:leave" -D "{build.path}/{build.project_name}.bin"
